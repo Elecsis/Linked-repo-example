@@ -10,7 +10,7 @@
   
 
   .background {
-    background-image: url("/Users/owner/Desktop/Ironlabs/game-project-snake-pit/imgs/snake-map.png");
+    background-image: url("./imgs/snake-map.png");
     background-size: cover;
     text-align: center;
   }
@@ -23,4 +23,3 @@
     padding-top: 65px;
     text-align: center;
   }
-  
