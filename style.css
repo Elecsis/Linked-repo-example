@@ -1,11 +1,26 @@
-div {
-    width: 400px;
-    margin: 50px auto;
-    background-color: black;
-  }
+
   
   h1 {
     text-align: center;
-    color: white;
+    color: red;
+    text-decoration-line: underline;
+    text-decoration-color: black;
+    background: none;
+  }
+  
+
+  .background {
+    background-image: url("/Users/owner/Desktop/Ironlabs/game-project-snake-pit/imgs/snake-map.png");
+    background-size: cover;
+    text-align: center;
+  }
+
+  canvas {
+    border: 5px solid red;
+  }
+
+  .snake-pit-rim{
+    padding-top: 65px;
+    text-align: center;
   }
   
