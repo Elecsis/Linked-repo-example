@@ -1,25 +1,30 @@
 
-  
+
+
+  .body-set {
+    padding: 0%;
+    margin: 0%;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("./imgs/grass.png");
+  }
+
   h1 {
     text-align: center;
     color: red;
     text-decoration-line: underline;
     text-decoration-color: black;
     background: none;
+    
   }
   
-
-  .background {
-    background-image: url("./imgs/snake-map.png");
-    background-size: cover;
-    text-align: center;
-  }
-
   canvas {
-    border: 5px solid red;
+    border: 5px solid black;
+    background-image: url("./imgs/sand.png");
+    
   }
 
-  .snake-pit-rim{
-    padding-top: 65px;
-    text-align: center;
-  }
+  
