@@ -16,8 +16,8 @@ let gameBackgroundImg = new Image();
 let snakeXVcty = 0;//variable that allows to move snake asset on y axis
 let snakeYVcty = 0;//variable that allows to move snake asset on x axis
 
-let foodXVcty = 0;//variable that allows to move food asset on x axis
-let foodYVcty = 0;//variable that allows to move food asset on y axis
+let foodXVcty = 5;//variable that allows to move food asset on x axis
+let foodYVcty = 5;//variable that allows to move food asset on y axis
 
 //const snakeBodyTiles = [];
 //let snakeTail = 1 ;
@@ -89,16 +89,16 @@ function drawSnake(){
 //draw food on canavs
 function drawFood(){
     ctx.fillStyle = 'green';// colors center tile of food
-    ctx.fillRect(foodXVcty * tileCount, foodYVcty * tileCount, tileSize, tileSize);
-    //ctx.strokeStyle = 'white';// colors border of food
-    //ctx.strokeRect(foodXVcty* tileCount, foodYVcty* tileCount, tileSize, tileSize);
+    ctx.fillRect(foodXVcty * 30, foodYVcty * 30, tileSize, tileSize);
+    ctx.strokeStyle = 'white';// colors border of food
+    ctx.strokeRect(foodXVcty* tileCount, foodYVcty* tileCount, tileSize, tileSize);
 }
 
 function foodCollision(){
     if(foodXVcty === startX && foodYVcty === startY){
-        foodXVcty = Math.floor((Math.random() * 30)+1);
+        foodXVcty = Math.floor(Math.random() * tileSize);
         console.log(foodXVcty);
-        foodYVcty = Math.floor((Math.random() * 30)+1);
+        foodYVcty = Math.floor(Math.random() * tileSize);
         console.log(foodYVcty);
     }
 }
