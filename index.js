@@ -17,7 +17,7 @@ let startX = 10;
 let startY = 10;
 
 let gameBackgroundImg = new Image();
-    gameBackgroundImg.src = "./imgs/sand.png";
+    gameBackgroundImg.src = "./imgs/Sand.png";
 
 let snakeXVcty = 0;//variable that allows to move snake asset on y axis
 let snakeYVcty = 0;//variable that allows to move snake asset on x axis
