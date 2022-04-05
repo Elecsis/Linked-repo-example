@@ -11,12 +11,12 @@ class snakeBody{
 }
 
 let gameSpeed = 5;// controls the game speed
-let tileCount = 30;//canvas is 600x600 (600/20=30)
-let tileSize = canvas.width / tileCount -2;// sets snake and food size to 18px
+let tileCount = canvas.height/ 20;//canvas is 600x600 (600/20=30)
+let tileSize = canvas.width / tileCount;// sets snake and food size to 18px
 let startX = 10;
 let startY = 10;
 
-let gameBackgroundImg = new Image();
+let gameBackgroundImg = new Image();// variable that sets sand background image in gameWindow
     gameBackgroundImg.src = "./imgs/sand.png";
 
 let snakeXVcty = 0;//variable that allows to move snake asset on y axis
@@ -25,15 +25,24 @@ let snakeYVcty = 0;//variable that allows to move snake asset on x axis
 let foodXVcty = 5;//variable that allows to move food asset on x axis
 let foodYVcty = 5;//variable that allows to move food asset on y axis
 
-const snakeBodyTiles = [];
+const snakeBodyTiles = [];// holds previous xy coordinates the snake has been
 let snakeTail = 1 ;
 
+let youLoseImg = new Image();//you lose image
+    youLoseImg.src = "./imgs/youlose.png";
+let youWinImg = new Image();
+    youWinImg.src = "./imgs/youWin.png";    
 
+let score = 0;
 
 
 //game loop to run all canvas functions
 function drawGameloop(){
     moveSnakeHead();
+    let result = YouLose();
+    if(result){
+        return ;
+    }
     clearGameWindow();
     foodCollision()
     drawFood();
@@ -41,22 +50,44 @@ function drawGameloop(){
     setTimeout(drawGameloop, 1000/ gameSpeed);
 }
 
-// clears game window
-function clearGameWindow(){
-    
-   // gameBackgroundImg.onload = ()=> {
-   //     ctx.drawImage(gameBackgroundImg,0,0,canvas.width,canvas.height);
-    //}
-    
-    ctx.drawImage(gameBackgroundImg,0,0,canvas.width,canvas.height);
+function YouLose(){// checks if snake hits borders or itself
+    let gameOver = false;
+    if(snakeXVcty === 0 && snakeYVcty === 0){
+        return false;
+    }
+    if(startX < 0){// checks if snake has passed the left border
+        gameOver = true;
+    } 
+    else if(startX >= tileSize){// checks if snake has passed the right border
+        gameOver = true;
+    } 
+    else if(startY >= tileSize){// checks if snake has passed the bottom border
+        gameOver = true;
+    } 
+    else if(startY < 0){// checks if snake has passed the top border
+        gameOver = true;
+    }
 
+    for(let i = 0; i <snakeBodyTiles.length; i++){
+        let parts = snakeBodyTiles[i];
+        if(parts.xPosSnakeBody === startX && parts.yPosSnakeBody === startY){
+            gameOver = true;
+            break;
+        }
+    }
 
-    //ctx.fillStyle = "brown";
-    //ctx.fillRect(0,0,canvas.width,canvas.height);
+     if(gameOver){ //draws out you lose 
+        ctx.drawImage(youLoseImg,225,200,150,150);
+    }   
+    return gameOver//ends function
 }
 
 
 
+// clears game window
+function clearGameWindow(){// draws sand background image
+    ctx.drawImage(gameBackgroundImg,0,0,canvas.width,canvas.height);
+}
 
 //Moves the snake position
 function moveSnakeHead(){
@@ -99,6 +130,7 @@ function foodCollision(){
         foodXVcty = Math.floor(Math.random() * tileSize);//creates new poistion for 
         foodYVcty = Math.floor(Math.random() * tileSize);
         snakeTail++;
+        score++;
     }
 }
 
