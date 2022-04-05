@@ -2,7 +2,13 @@ const canvas = document.getElementById('game-window');
 const ctx = canvas.getContext('2d');
 
 
-
+// class for snake body tile array
+class snakeBody{
+    constructor(x,y){
+        this.xPosSnakeBody = x;
+        this.yPosSnakeBody = y;
+    }
+}
 
 let gameSpeed = 5;// controls the game speed
 let tileCount = 30;//canvas is 600x600 (600/20=30)
@@ -19,22 +25,16 @@ let snakeYVcty = 0;//variable that allows to move snake asset on x axis
 let foodXVcty = 5;//variable that allows to move food asset on x axis
 let foodYVcty = 5;//variable that allows to move food asset on y axis
 
-//const snakeBodyTiles = [];
-//let snakeTail = 1 ;
+const snakeBodyTiles = [];
+let snakeTail = 1 ;
 
 
-// class for snake body tile array
-class snakeBody{
-    constructor(x,y){
-        this.xPosBody = x;
-        this.yPosBody= y;
-    }
-}
+
 
 //game loop to run all canvas functions
 function drawGameloop(){
-    clearGameWindow();
     moveSnakeHead();
+    clearGameWindow();
     foodCollision()
     drawFood();
     drawSnake();
@@ -67,22 +67,22 @@ function moveSnakeHead(){
 //draws snake onto canvas
 function drawSnake(){
     ctx.fillStyle = 'black';// colors center tile of snake
+    ctx.strokeStyle = "green";// colors border tile of snake
+    for(let i = 0; i <snakeBodyTiles.length; i++){// loop that draws snake body tiles
+        let snakeTiles = snakeBodyTiles[i];
+        ctx.fillRect(snakeTiles.xPosSnakeBody * tileCount, snakeTiles.yPosSnakeBody * tileCount, tileSize, tileSize);
+        ctx.strokeRect(snakeTiles.xPosSnakeBody * tileCount, snakeTiles.yPosSnakeBody * tileCount, tileSize,tileSize);
+    }
+
+    snakeBodyTiles.push(new snakeBody(startX, startY));//adds previous snake head x&y position to array
+    if(snakeBodyTiles.length > snakeTail){
+        snakeBodyTiles.shift();// takes off lass array element if longer than tail & array length
+    }
+    // snake head must be drawn last to avoid starting position with wrong color
+    ctx.fillStyle = 'black';// colors center tile of snake
     ctx.fillRect(startX * tileCount, startY * tileCount, tileSize, tileSize);
     ctx.strokeStyle = "red";// colors border tile of snake
     ctx.strokeRect(startX * tileCount, startY * tileCount, tileSize, tileSize);
-
-    //ctx.fillStyle = 'black';// colors center tile of snake
-        //ctx.strokeStyle = "red";// colors border tile of snake
-    //for(let i = 0; i<snakeBodyTiles.length; i++){
-    //    let snakeTiles = snakeBodyTiles[i];
-    //    ctx.fillRect(snakeTiles.xPosBody * tileCount, snakeTiles.yPosBody * tileCount, tileSize,tileSize);
-        //ctx.strokeRect(snakeTiles.xPosBody * tileCount, snakeTiles.yPosBody * tileCount, tileSize,tileSize);
-    //}
-
-    //snakeBodyTiles.push(new snakeBodyTiles(snakeXVcty, snakeYVcty));
-    //while(snakeBodyTiles.length > snakeTail){
-    //    snakeBodyTiles.shift();
-    //}
     
 }
 
@@ -93,13 +93,12 @@ function drawFood(){
     ctx.strokeStyle = 'white';// colors border of food
     ctx.strokeRect(foodXVcty* tileCount, foodYVcty* tileCount, tileSize, tileSize);
 }
-
+// collision dectection function for food
 function foodCollision(){
-    if(foodXVcty === startX && foodYVcty === startY){
-        foodXVcty = Math.floor(Math.random() * tileSize);
-        console.log(foodXVcty);
+    if(foodXVcty === startX && foodYVcty === startY){// verifies if snake hits food
+        foodXVcty = Math.floor(Math.random() * tileSize);//creates new poistion for 
         foodYVcty = Math.floor(Math.random() * tileSize);
-        console.log(foodYVcty);
+        snakeTail++;
     }
 }
 
