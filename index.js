@@ -12,7 +12,7 @@ class snakeBody{
 
 let gameSpeed = 5;// controls the game speed
 let tileCount = 30;//canvas is 600x600 (600/20=30)
-let tileSize = canvas.width / tileCount;// sets snake and food size to 18px
+let tileSize = canvas.width / tileCount -2;// sets snake and food size to 18px
 let startX = 10;
 let startY = 10;
 
