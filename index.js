@@ -2,7 +2,7 @@ const canvas = document.getElementById('game-window');
 const ctx = canvas.getContext('2d');
 //let restartButton = document.getElementById("Restart");
 //restartButton.addEventListener("click", gameRestart);
-//*HTML*<button type="button" class="btn btn-primary" id="Restart" onclick="again">Restart</button>
+//*HTML*
 
 // class for snake body tile array
 class snakeBody{
