@@ -9,7 +9,7 @@ class snakeBody{
         this.yPosSnakeBody = y;
     }
 }
-
+let ca
 let gameSpeed = 5;// controls the game speed
 let tileCount = canvas.height/ 20;//canvas is 600x600 (600/20=30)
 let tileSize = canvas.width / tileCount;// sets snake and food size to 18px
@@ -29,9 +29,7 @@ const snakeBodyTiles = [];// holds previous xy coordinates the snake has been
 let snakeTail = 1 ;
 
 let youLoseImg = new Image();//you lose image
-    youLoseImg.src = "./imgs/youlose.png";
-let youWinImg = new Image();
-    youWinImg.src = "./imgs/youWin.png";    
+    youLoseImg.src = "./imgs/youlose.png";    
 
 let score = 0;
 
@@ -49,13 +47,13 @@ function drawGameloop(){
     drawSnake();
     setTimeout(drawGameloop, 1000/ gameSpeed);
 }
-
+// fucnction checks conditions for losing game
 function YouLose(){// checks if snake hits borders or itself
     let gameOver = false;
     if(snakeXVcty === 0 && snakeYVcty === 0){
         return false;
     }
-    if(startX < 0){// checks if snake has passed the left border
+    else if(startX < 0){// checks if snake has passed the left border
         gameOver = true;
     } 
     else if(startX >= tileSize){// checks if snake has passed the right border
@@ -67,17 +65,17 @@ function YouLose(){// checks if snake hits borders or itself
     else if(startY < 0){// checks if snake has passed the top border
         gameOver = true;
     }
-
-    for(let i = 0; i <snakeBodyTiles.length; i++){
+    for(let i = 0; i <snakeBodyTiles.length; i++){// loops through snake tiles array to check snake head does not hit snake body
         let parts = snakeBodyTiles[i];
         if(parts.xPosSnakeBody === startX && parts.yPosSnakeBody === startY){
             gameOver = true;
             break;
         }
     }
-
-     if(gameOver){ //draws out you lose 
+    if (gameOver){ //draws out you lose 
+        
         ctx.drawImage(youLoseImg,225,200,150,150);
+        
     }   
     return gameOver//ends function
 }
@@ -109,6 +107,7 @@ function drawSnake(){
     if(snakeBodyTiles.length > snakeTail){
         snakeBodyTiles.shift();// takes off lass array element if longer than tail & array length
     }
+
     // snake head must be drawn last to avoid starting position with wrong color
     ctx.fillStyle = 'black';// colors center tile of snake
     ctx.fillRect(startX * tileCount, startY * tileCount, tileSize, tileSize);
