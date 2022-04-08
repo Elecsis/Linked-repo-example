@@ -9,7 +9,7 @@ class snakeBody{
         this.yPosSnakeBody = y;
     }
 }
-let ca
+
 let gameSpeed = 5;// controls the game speed
 let tileCount = canvas.height/ 20;//canvas is 600x600 (600/20=30)
 let tileSize = canvas.width / tileCount;// sets snake and food size to 18px
@@ -28,8 +28,8 @@ let foodYVcty = 5;//variable that allows to move food asset on y axis
 const snakeBodyTiles = [];// holds previous xy coordinates the snake has been
 let snakeTail = 1 ;
 
-let youLoseImg = new Image();//you lose image
-    youLoseImg.src = "./imgs/youlose.png";    
+//let youLoseImg = new Image();//you lose image
+//    youLoseImg.src = "./imgs/youlose.png";    
 
 let score = 0;
 
@@ -49,6 +49,8 @@ function drawGameloop(){
 }
 // fucnction checks conditions for losing game
 function YouLose(){// checks if snake hits borders or itself
+    let youLoseImg = new Image();//you lose image
+    youLoseImg.src = "./imgs/youlose.png";
     let gameOver = false;
     if(snakeXVcty === 0 && snakeYVcty === 0){
         return false;
@@ -96,11 +98,11 @@ function moveSnakeHead(){
 //draws snake onto canvas
 function drawSnake(){
     ctx.fillStyle = 'black';// colors center tile of snake
-    ctx.strokeStyle = "green";// colors border tile of snake
+    //ctx.strokeStyle = "green";// colors border tile of snake
     for(let i = 0; i <snakeBodyTiles.length; i++){// loop that draws snake body tiles
         let snakeTiles = snakeBodyTiles[i];
         ctx.fillRect(snakeTiles.xPosSnakeBody * tileCount, snakeTiles.yPosSnakeBody * tileCount, tileSize, tileSize);
-        ctx.strokeRect(snakeTiles.xPosSnakeBody * tileCount, snakeTiles.yPosSnakeBody * tileCount, tileSize,tileSize);
+        //ctx.strokeRect(snakeTiles.xPosSnakeBody * tileCount, snakeTiles.yPosSnakeBody * tileCount, tileSize,tileSize);
     }
 
     snakeBodyTiles.push(new snakeBody(startX, startY));//adds previous snake head x&y position to array
