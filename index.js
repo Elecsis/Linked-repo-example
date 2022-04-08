@@ -1,6 +1,8 @@
 const canvas = document.getElementById('game-window');
 const ctx = canvas.getContext('2d');
-
+//let restartButton = document.getElementById("Restart");
+//restartButton.addEventListener("click", gameRestart);
+//*HTML*<button type="button" class="btn btn-primary" id="Restart" onclick="again">Restart</button>
 
 // class for snake body tile array
 class snakeBody{
@@ -28,8 +30,8 @@ let foodYVcty = 5;//variable that allows to move food asset on y axis
 const snakeBodyTiles = [];// holds previous xy coordinates the snake has been
 let snakeTail = 1 ;
 
-//let youLoseImg = new Image();//you lose image
-//    youLoseImg.src = "./imgs/youlose.png";    
+const youLoseImg = new Image();//you lose image
+    youLoseImg.src = "./imgs/youlose.png";    
 
 let score = 0;
 
@@ -42,15 +44,14 @@ function drawGameloop(){
         return ;
     }
     clearGameWindow();
-    foodCollision()
+    foodCollision();
     drawFood();
     drawSnake();
+    drawScore();
     setTimeout(drawGameloop, 1000/ gameSpeed);
 }
 // fucnction checks conditions for losing game
 function YouLose(){// checks if snake hits borders or itself
-    let youLoseImg = new Image();//you lose image
-    youLoseImg.src = "./imgs/youlose.png";
     let gameOver = false;
     if(snakeXVcty === 0 && snakeYVcty === 0){
         return false;
@@ -76,13 +77,32 @@ function YouLose(){// checks if snake hits borders or itself
     }
     if (gameOver){ //draws out you lose 
         
-        ctx.drawImage(youLoseImg,225,200,150,150);
-        
+        //ctx.drawImage(youLoseImg,225,200,150,150);
+        ctx.fillStyle = "Red";
+        ctx.font = " 70px Verdana";
+        ctx.fillText("Game Over!!!!", 60, 325 );
     }   
     return gameOver//ends function
 }
 
 
+//draw score
+function drawScore(){
+    ctx.fillStyle = "black";
+    ctx.font = " 20px Verdana";
+    ctx.fillText("Score: " + score, 0, 20 );
+}
+
+// restart game
+function gameRestart(){
+    let startX = 10;
+    let startY = 10;
+    let snakeXVcty = 0;//variable that allows to move snake asset on y axis
+    let snakeYVcty = 0
+    let foodXVcty = 5;//variable that allows to move food asset on x axis
+    let foodYVcty = 5;
+    drawGameloop();
+}
 
 // clears game window
 function clearGameWindow(){// draws sand background image
